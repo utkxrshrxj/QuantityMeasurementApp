@@ -2,8 +2,10 @@ public class QuantityMeasurementApp {
 
     // Enum for supported length units
     public enum LengthUnit {
-        FEET(12.0),   // 1 foot = 12 inches
-        INCH(1.0);    // base unit is inch
+        FEET(12.0),          // 1 foot = 12 inches
+        INCH(1.0),           // base unit is inch
+        YARD(36.0),          // 1 yard = 3 feet = 36 inches
+        CENTIMETER(0.393701); // 1 cm = 0.393701 inches
 
         private final double conversionFactorToInch;
 
@@ -36,7 +38,6 @@ public class QuantityMeasurementApp {
 
             QuantityLength other = (QuantityLength) obj;
 
-            // Convert both values to base unit (inches) before comparison
             double thisValueInInches = this.unit.toBaseUnit(this.value);
             double otherValueInInches = other.unit.toBaseUnit(other.value);
 
@@ -53,12 +54,14 @@ public class QuantityMeasurementApp {
     public static void main(String[] args) {
         QuantityLength q1 = new QuantityLength(1.0, LengthUnit.FEET);
         QuantityLength q2 = new QuantityLength(12.0, LengthUnit.INCH);
-
         System.out.println("Feet vs Inches equality: " + q1.equals(q2));
 
-        QuantityLength q3 = new QuantityLength(1.0, LengthUnit.INCH);
-        QuantityLength q4 = new QuantityLength(1.0, LengthUnit.INCH);
+        QuantityLength q3 = new QuantityLength(1.0, LengthUnit.YARD);
+        QuantityLength q4 = new QuantityLength(3.0, LengthUnit.FEET);
+        System.out.println("Yard vs Feet equality: " + q3.equals(q4));
 
-        System.out.println("Inches equality: " + q3.equals(q4));
+        QuantityLength q5 = new QuantityLength(2.54, LengthUnit.CENTIMETER);
+        QuantityLength q6 = new QuantityLength(1.0, LengthUnit.INCH);
+        System.out.println("Centimeter vs Inch equality: " + q5.equals(q6));
     }
 }
