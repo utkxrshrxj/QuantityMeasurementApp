@@ -2,44 +2,64 @@ public class QuantityMeasurementApp {
 
     // Inner class representing Feet measurement
     public static class Feet {
-        private final double value; // encapsulated, immutable
+        private final double value;
 
-        // Constructor
         public Feet(double value) {
             this.value = value;
         }
 
-        // Override equals for value-based equality
         @Override
         public boolean equals(Object obj) {
-            // Reflexive check
             if (this == obj) return true;
-
-            // Null check
-            if (obj == null) return false;
-
-            // Type check
-            if (this.getClass() != obj.getClass()) return false;
-
-            // Safe cast
+            if (obj == null || this.getClass() != obj.getClass()) return false;
             Feet other = (Feet) obj;
-
-            // Compare double values safely
             return Double.compare(this.value, other.value) == 0;
         }
 
-        // Optional: Override hashCode to maintain equality contract
         @Override
         public int hashCode() {
             return Double.hashCode(value);
         }
     }
 
-    // Main method for quick verification
-    public static void main(String[] args) {
-        Feet f1 = new Feet(1.0);
-        Feet f2 = new Feet(1.0);
+    // Inner class representing Inches measurement
+    public static class Inches {
+        private final double value;
 
-        System.out.println("Are they equal? " + f1.equals(f2));
+        public Inches(double value) {
+            this.value = value;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || this.getClass() != obj.getClass()) return false;
+            Inches other = (Inches) obj;
+            return Double.compare(this.value, other.value) == 0;
+        }
+
+        @Override
+        public int hashCode() {
+            return Double.hashCode(value);
+        }
+    }
+
+    // Static methods for equality checks
+    public static boolean checkFeetEquality(double v1, double v2) {
+        Feet f1 = new Feet(v1);
+        Feet f2 = new Feet(v2);
+        return f1.equals(f2);
+    }
+
+    public static boolean checkInchesEquality(double v1, double v2) {
+        Inches i1 = new Inches(v1);
+        Inches i2 = new Inches(v2);
+        return i1.equals(i2);
+    }
+
+    // Main method for demonstration
+    public static void main(String[] args) {
+        System.out.println("Feet equality: " + checkFeetEquality(1.0, 1.0));
+        System.out.println("Inches equality: " + checkInchesEquality(1.0, 1.0));
     }
 }
